@@ -4,24 +4,16 @@ A modern, high-performance, mobile-first enrollment platform for **Dhaka College
 
 ---
 
-## ⚡ Quick Start: Host in Under 15 Minutes
+## ⚡ Deploy with GitHub Pages
 
-### Option 1: Vercel (Recommended - Takes 2 Minutes)
-1. Drag and drop this folder onto your GitHub repository (or run `git init && git push`).
-2. Go to [vercel.com](https://vercel.com) > **Add New Project**.
-3. Import the repository and click **Deploy**.
-4. Your site is live on a free SSL domain (e.g. `dcpc-enrollment.vercel.app`)!
+This repository deploys automatically from `main` using `.github/workflows/deploy-pages.yml`.
 
-### Option 2: Netlify Drop (Zero Setup - Takes 60 Seconds)
-1. Go to [app.netlify.com/drop](https://app.netlify.com/drop).
-2. Drag and drop this entire `dcpc-enrollment-web` folder onto the browser.
-3. Your site is deployed instantly!
+1. Open the repository on GitHub and go to **Settings** > **Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+3. Push or merge changes into `main`, then monitor the **Deploy static site to GitHub Pages** workflow under **Actions**.
+4. Open the Pages URL shown in the workflow deployment environment.
 
-### Option 3: GitHub Pages (Free Forever)
-1. Create a new GitHub repo (e.g., `dcpc-enrollment`).
-2. Push this folder to `main`.
-3. Go to **Settings** > **Pages** > Source: `Deploy from branch main /root`.
-4. Your site will be live at `https://<your-username>.github.io/dcpc-enrollment/`.
+If the site still displays an older login form, confirm that Pages is using this repository's `main` deployment, wait for the workflow to finish, and perform a hard refresh or open the URL in a private window. The current source does not contain the old PIN form.
 
 ---
 
