@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('loginForm');
   const passwordInput = document.getElementById('adminPasswordInput');
   const loginError = document.getElementById('loginError');
+  const adminDashboard = document.getElementById('adminDashboard');
   const tableBody = document.getElementById('applicantTableBody');
   const noDataRow = document.getElementById('noDataRow');
   const searchInput = document.getElementById('searchInput');
@@ -42,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function unlock() {
     loginModal.classList.add('hidden');
+    adminDashboard.classList.remove('hidden');
     loadApplicants();
   }
 
