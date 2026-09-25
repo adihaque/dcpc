@@ -3,10 +3,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const pinModal = document.getElementById('pinModal');
-  const pinForm = document.getElementById('pinForm');
-  const pinInput = document.getElementById('adminPinInput');
-  const pinError = document.getElementById('pinError');
   const tableBody = document.getElementById('applicantTableBody');
   const noDataRow = document.getElementById('noDataRow');
   const searchInput = document.getElementById('searchInput');
@@ -20,27 +16,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let applicants = [];
 
-  // Check stored auth
-  if (sessionStorage.getItem('dcpc_admin_auth') === 'true') {
-    pinModal.classList.add('hidden');
-    loadApplicants();
+  loadApplicants();
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, character => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[character]));
   }
 
-  // PIN Gate Submit
-  pinForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const entered = pinInput.value.trim();
-    const correct = window.DCPC_CONFIG?.ADMIN_PIN || "1841";
-
-    if (entered === correct) {
-      sessionStorage.setItem('dcpc_admin_auth', 'true');
-      pinModal.classList.add('hidden');
-      loadApplicants();
-    } else {
-      pinError.classList.remove('hidden');
-      pinInput.value = '';
+  function safeExternalUrl(value) {
+    try {
+      const url = new URL(value);
+      return url.protocol === 'https:' ? url.href : '#';
+    } catch {
+      return '#';
     }
-  });
+  }
 
   // Load from LocalStorage
   function loadApplicants() {
@@ -57,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Update Metrics
   function updateMetrics(list) {
     metricTotal.innerText = list.length;
-    metricFees.innerText = `৳ ${(list.length * 100).toLocaleString()}`;
+    const fee = window.DCPC_CONFIG?.MEMBERSHIP_FEE || 0;
+    metricFees.innerText = `৳ ${(list.length * fee).toLocaleString()}`;
     const proCount = list.filter(item => item.device === 'DSLR' || item.device === 'Mirrorless').length;
     metricProGear.innerText = proCount;
   }
@@ -76,31 +72,31 @@ document.addEventListener('DOMContentLoaded', () => {
       tr.className = 'hover:bg-white/[0.02] transition-colors';
       tr.innerHTML = `
         <td class="p-3.5 font-mono text-slate-400">
-          <div class="font-bold text-brand-cyan">${item.referenceId || 'DCPC-REF'}</div>
-          <div class="text-[10px] text-slate-500">${new Date(item.timestamp).toLocaleDateString()}</div>
+          <div class="font-bold text-brand-cyan">${escapeHtml(item.referenceId || 'DCPC-REF')}</div>
+          <div class="text-[10px] text-slate-500">${escapeHtml(new Date(item.timestamp).toLocaleDateString())}</div>
         </td>
         <td class="p-3.5">
-          <div class="font-bold text-white">${item.nameEn || item.nameBn}</div>
-          <div class="text-[11px] text-slate-400">${item.nameBn || ''}</div>
+          <div class="font-bold text-white">${escapeHtml(item.nameEn || item.nameBn)}</div>
+          <div class="text-[11px] text-slate-400">${escapeHtml(item.nameBn || '')}</div>
         </td>
         <td class="p-3.5">
-          <div class="text-slate-200">${item.classYear || '-'}</div>
-          <div class="text-[11px] text-slate-400">Roll: ${item.collegeRoll || '-'} (${item.department || '-'})</div>
+          <div class="text-slate-200">${escapeHtml(item.classYear || '-')}</div>
+          <div class="text-[11px] text-slate-400">Roll: ${escapeHtml(item.collegeRoll || '-')} (${escapeHtml(item.department || '-')})</div>
         </td>
         <td class="p-3.5">
-          <div class="text-white font-mono">${item.mobile || '-'}</div>
-          <a href="${item.facebookLink}" target="_blank" class="text-[11px] text-blue-400 hover:underline">Facebook</a>
+          <div class="text-white font-mono">${escapeHtml(item.mobile || '-')}</div>
+          <a href="${safeExternalUrl(item.facebookLink)}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-blue-400 hover:underline">Facebook</a>
         </td>
         <td class="p-3.5">
-          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-white/10 text-slate-200">${item.device || '-'}</span>
-          <div class="text-[10px] text-slate-400 mt-0.5">${item.cameraModel || ''}</div>
+          <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-white/10 text-slate-200">${escapeHtml(item.device || '-')}</span>
+          <div class="text-[10px] text-slate-400 mt-0.5">${escapeHtml(item.cameraModel || '')}</div>
         </td>
         <td class="p-3.5">
-          <span class="text-slate-300">${item.experience || '-'}</span>
+          <span class="text-slate-300">${escapeHtml(item.experience || '-')}</span>
         </td>
         <td class="p-3.5 font-mono">
-          <div class="font-bold text-amber-400">${item.trxId || '-'}</div>
-          <div class="text-[10px] text-slate-400">${item.paymentMethod || 'bKash'}</div>
+          <div class="font-bold text-amber-400">${escapeHtml(item.trxId || '-')}</div>
+          <div class="text-[10px] text-slate-400">${escapeHtml(item.paymentMethod || 'bKash')}</div>
         </td>
         <td class="p-3.5">
           <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">

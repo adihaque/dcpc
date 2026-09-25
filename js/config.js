@@ -5,7 +5,6 @@ const DCPC_CONFIG = {
   CLUB_NAME_EN: "Dhaka College Photography Club",
   CLUB_NAME_BN: "ঢাকা কলেজ ফটোগ্রাফি ক্লাব",
   ACRONYM: "DCPC",
-  ESTD: "1841",
   MEMBERSHIP_FEE: 100, // in BDT
   PAYMENT_NUMBERS: {
     bKash: "01581964228",
@@ -16,10 +15,6 @@ const DCPC_CONFIG = {
   // PASTE YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL HERE:
   // e.g.: "https://script.google.com/macros/s/AKfycby.../exec"
   GOOGLE_SHEET_WEB_APP_URL: "https://script.google.com/macros/s/AKfycby2XgI8jmPov_VuJiimkwEfJo21dCHgDC7vxCSJeFNOel5Za8dJH1Jr9ybZVzDtFhMFdA/exec",
-  
-  // Executive Admin PIN to view and export live applications in /admin.html
-  ADMIN_PIN: "1841",
-  
   CONTACT: {
     facebook: "https://facebook.com/dhakacollegephotographyclub",
     email: "adihaque15@gmail.com",

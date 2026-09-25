@@ -19,8 +19,13 @@ function doGet(e) {
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
-  // Wait up to 30 seconds for concurrent requests to avoid race conditions
-  lock.tryLock(30000);
+  // Wait up to 30 seconds for concurrent requests to avoid race conditions.
+  if (!lock.tryLock(30000)) {
+    return jsonResponse({
+      status: 'error',
+      message: 'The enrollment service is busy. Please try again.'
+    });
+  }
 
   try {
     let sheet;
@@ -43,34 +48,53 @@ function doPost(e) {
       data = e.parameter;
     }
 
+    const requiredFields = ['nameBn', 'nameEn', 'mobile', 'collegeRoll', 'trxId'];
+    const missingField = requiredFields.find(function(field) {
+      return !String(data[field] || '').trim();
+    });
+    if (missingField) {
+      return jsonResponse({
+        status: 'error',
+        message: 'Required enrollment information is missing.'
+      });
+    }
+
+    const mobile = String(data.mobile).trim();
+    if (!/^01[3-9]\d{8}$/.test(mobile)) {
+      return jsonResponse({
+        status: 'error',
+        message: 'Please provide a valid Bangladesh mobile number.'
+      });
+    }
+
     const timestamp = new Date();
     const formattedTimestamp = Utilities.formatDate(timestamp, "Asia/Dhaka", "dd/MM/yyyy HH:mm:ss");
 
     const row = [
       formattedTimestamp,
-      data.nameBn || '',
-      data.nameEn || '',
-      data.dob || '',
-      data.bloodGroup || '',
-      data.classYear || '',
-      data.department || '',
-      data.session || '',
-      data.collegeRoll || '',
-      data.section || '',
-      data.mobile || '',
-      data.whatsapp || '',
-      data.email || '',
-      data.presentAddress || '',
-      data.permanentAddress || '',
-      data.guardianInfo || '',
-      data.facebookLink || '',
-      data.device || '',
-      data.cameraModel || '',
-      data.experience || '',
-      Array.isArray(data.interests) ? data.interests.join(', ') : (data.interests || ''),
-      data.reason || '',
-      data.paymentMethod || '',
-      data.trxId ? data.trxId.toUpperCase().trim() : '',
+      safeCell(data.nameBn),
+      safeCell(data.nameEn),
+      safeCell(data.dob),
+      safeCell(data.bloodGroup),
+      safeCell(data.classYear),
+      safeCell(data.department),
+      safeCell(data.session),
+      safeCell(data.collegeRoll),
+      safeCell(data.section),
+      safeCell(mobile),
+      safeCell(data.whatsapp),
+      safeCell(data.email),
+      safeCell(data.presentAddress),
+      safeCell(data.permanentAddress),
+      safeCell(data.guardianInfo),
+      safeCell(data.facebookLink),
+      safeCell(data.device),
+      safeCell(data.cameraModel),
+      safeCell(data.experience),
+      safeCell(Array.isArray(data.interests) ? data.interests.join(', ') : data.interests),
+      safeCell(data.reason),
+      safeCell(data.paymentMethod),
+      safeCell(data.trxId ? String(data.trxId).toUpperCase().trim() : ''),
       'Pending Verification'
     ];
 
@@ -83,15 +107,25 @@ function doPost(e) {
       referenceId: 'DCPC-' + Utilities.formatDate(timestamp, "Asia/Dhaka", "yyMMdd") + '-' + (sheet.getLastRow() - 1)
     };
 
-    return ContentService.createTextOutput(JSON.stringify(result))
-      .setMimeType(ContentService.MimeType.JSON);
+    return jsonResponse(result);
 
   } catch (error) {
-    return ContentService.createTextOutput(JSON.stringify({
+    console.error(error);
+    return jsonResponse({
       status: 'error',
-      message: error.toString()
-    })).setMimeType(ContentService.MimeType.JSON);
+      message: 'The enrollment could not be saved. Please try again.'
+    });
   } finally {
     lock.releaseLock();
   }
+}
+
+function safeCell(value) {
+  const text = String(value || '').trim();
+  return /^[=+\-@]/.test(text) ? "'" + text : text;
+}
+
+function jsonResponse(payload) {
+  return ContentService.createTextOutput(JSON.stringify(payload))
+    .setMimeType(ContentService.MimeType.JSON);
 }
