@@ -22,10 +22,12 @@ Your Google Sheet is already created here:
 3. Fill in the fields:
    - **Description**: `DCPC Enrollment Web App`
    - **Execute as**: `Me (your email)`
-   - **Who has access**: **`Anyone`** *(Crucial: allows students to submit without requiring Google sign-in)*
+   - **Who has access**: **`Anyone`** *(required for public form submissions; this makes the endpoint publicly writable)*
 4. Click **Deploy**.
 5. When prompted, click **Authorize access**, choose your Google account, click **Advanced**, and click **Go to Untitled project (unsafe)** > **Allow**.
 6. Copy the **Web App URL** (it ends with `/exec`).
+
+Because the public form writes through this endpoint, do not use the endpoint as an administration interface. Keep the Google Sheet itself restricted to authorized club executives and review submissions for abuse.
 
 ### Step 4: Connect to your Website
 1. Open `js/config.js` in your website folder.
@@ -38,4 +40,4 @@ Your Google Sheet is already created here:
 ---
 
 ### Fallback Mode:
-If you haven't deployed the Apps Script yet, the website automatically runs in **Offline / Local Backup Mode**. Submissions are saved securely in the browser's `localStorage` and can be downloaded as a CSV or synced anytime from `/admin.html`.
+If you haven't deployed the Apps Script yet, the website automatically runs in **Offline / Local Backup Mode**. Submissions are saved temporarily in the browser's `localStorage` and can be downloaded as a CSV from `/admin.html`. This is not secure storage and must not be treated as a production database.

@@ -43,10 +43,9 @@ Your Google Sheet is already created and formatted:
 
 ---
 
-## 🛡️ Executive Portal (`admin.html`)
-- Dedicated administrative dashboard to search applicants, view payment verification statuses, track total enrollment fees collected, and filter by photography gear/experience.
-- **Passcode**: Default PIN is `1841` (can be changed in `js/config.js`).
-- One-click **Export to CSV** for offline club records.
+## 🛡️ Administration
+- The Google Sheet is the production administration surface. Restrict its sharing permissions to authorized club executives.
+- `admin.html` is only a local-browser backup viewer and CSV exporter. It is not an authentication boundary and should not be used to protect live applicant data.
 
 ---
 
