@@ -27,11 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const whatsappInput = document.getElementById('whatsappInput');
 
   const stepTitles = [
-    "ধাপ ১: ব্যক্তিগত তথ্য (Personal Details)",
-    "ধাপ ২: প্রাতিষ্ঠানিক তথ্য (Academic Information)",
-    "ধাপ ৩: যোগাযোগ ও সোশ্যাল তথ্য (Contact & Social)",
-    "ধাপ ৪: ফটোগ্রাফি অভিজ্ঞতা ও আগ্রহ (Photography)",
-    "ধাপ ৫: ফি প্রদান ও ট্রানজেকশন আইডি (Payment)"
+    "Step 1: Personal details",
+    "Step 2: Academic details",
+    "Step 3: Contact details",
+    "Step 4: Photography",
+    "Step 5: Payment"
   ];
 
   // Initialize payment number from config if available

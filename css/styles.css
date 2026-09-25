@@ -349,6 +349,216 @@ body > header + #loginModal {
     background: #fff;
   }
 
+  /* Minimal public landing page */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(245, 245, 247, 0.86);
+    border-bottom: 1px solid #e5e5e7;
+    backdrop-filter: blur(18px);
+  }
+
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1080px;
+    min-height: 64px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .site-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .site-brand-logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+
+  .site-brand-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .site-brand-subtitle {
+    margin: 2px 0 0;
+    color: var(--muted);
+    font-size: 0.66rem;
+  }
+
+  .camera-status,
+  .site-nav > span {
+    display: none !important;
+  }
+
+  .site-admin-link {
+    color: var(--ink) !important;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .site-admin-link:hover {
+    color: var(--accent) !important;
+  }
+
+  .hero {
+    padding: clamp(5.5rem, 14vw, 9rem) 24px clamp(4rem, 10vw, 7rem);
+    background: var(--page);
+  }
+
+  .hero-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    display: inline-flex !important;
+    align-items: center;
+    margin: 0 0 24px;
+    color: var(--accent) !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+
+  .eyebrow i {
+    display: none;
+  }
+
+  .hero h1 {
+    max-width: 760px;
+    margin: 0;
+    color: var(--ink) !important;
+    font-size: clamp(3.25rem, 10vw, 7.5rem) !important;
+    font-weight: 700;
+    letter-spacing: -0.075em;
+    line-height: 0.94;
+  }
+
+  .hero h1 span {
+    color: var(--ink) !important;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-copy {
+    max-width: 480px;
+    margin: 32px 0 0;
+    color: var(--muted) !important;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    margin-top: 28px;
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  .hero-meta > div {
+    display: block !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .hero-meta > div:nth-child(4) {
+    display: none !important;
+  }
+
+  .hero-meta > div p {
+    margin: 0 !important;
+  }
+
+  .hero-meta > div p:first-child {
+    color: var(--muted) !important;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .hero-meta > div p:last-child {
+    display: none;
+  }
+
+  .hero-meta i,
+  .hero-meta div > div {
+    display: none;
+  }
+
+  .enrollment-main {
+    max-width: 760px !important;
+    padding-bottom: 96px !important;
+  }
+
+  .enrollment-main > .glass-panel {
+    border-radius: 20px !important;
+  }
+
+  .enrollment-main .mb-8 {
+    margin-bottom: 2.5rem !important;
+  }
+
+  .enrollment-main .form-step h2 {
+    font-size: 1.35rem !important;
+  }
+
+  .enrollment-main .form-step h2 i {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .site-header-inner {
+      min-height: 58px;
+      padding: 0 18px;
+    }
+
+    .site-brand-subtitle {
+      display: none;
+    }
+
+    .hero {
+      padding: 4.5rem 20px 3.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 16vw, 5rem) !important;
+    }
+
+    .hero-copy {
+      margin-top: 24px;
+      font-size: 0.92rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .enrollment-main {
+      padding-right: 16px !important;
+      padding-left: 16px !important;
+    }
+  }
+
   body > header,
   #enrollmentForm,
   #successCard > .flex {

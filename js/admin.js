@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nameEn: 'TASINUL HAQUE ADI',
       dob: '2008-01-11',
       bloodGroup: 'B+',
-      classYear: 'HSC 2nd Year (দ্বাদশ)',
+      classYear: 'Class 12',
       department: 'বিজ্ঞান (Science)',
       session: '2025-2026',
       collegeRoll: '108',
