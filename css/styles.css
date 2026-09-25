@@ -348,8 +348,9 @@ body > header + #loginModal {
   body {
     background: #fff;
   }
+}
 
-  /* Minimal public landing page */
+/* Minimal public landing page */
   .site-header {
     position: sticky;
     top: 0;
@@ -559,6 +560,7 @@ body > header + #loginModal {
     }
   }
 
+@media print {
   body > header,
   #enrollmentForm,
   #successCard > .flex {
