@@ -18,7 +18,7 @@ const DCPC_CONFIG = {
   // e.g.: "https://script.google.com/macros/s/AKfycby.../exec"
   GOOGLE_SHEET_WEB_APP_URL: "https://script.google.com/macros/s/AKfycby2XgI8jmPov_VuJiimkwEfJo21dCHgDC7vxCSJeFNOel5Za8dJH1Jr9ybZVzDtFhMFdA/exec",
   CONTACT: {
-    facebook: "https://facebook.com/dhakacollegephotographyclub",
+    facebook: "https://www.facebook.com/dcpc.official",
     email: "adihaque15@gmail.com",
     helpline: "01581964228"
   }
