@@ -37,7 +37,8 @@ Your Google Sheet is already created and formatted:
 
 ## 🛡️ Administration
 - The Google Sheet is the production administration surface. Restrict its sharing permissions to authorized club executives.
-- `admin.html` is only a local-browser backup viewer and CSV exporter. It is not an authentication boundary and should not be used to protect live applicant data.
+- `admin.html` requires the administrator password and supports local CSV export.
+- The password is not stored as plaintext; only its SHA-256 hash is committed in `js/config.js`. This is a client-side gate, not a security boundary. Anyone who can inspect the published JavaScript can bypass it, so do not treat this page as protection for sensitive live data.
 
 ---
 

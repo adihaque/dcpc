@@ -6,6 +6,8 @@ const DCPC_CONFIG = {
   CLUB_NAME_BN: "ঢাকা কলেজ ফটোগ্রাফি ক্লাব",
   ACRONYM: "DCPC",
   MEMBERSHIP_FEE: 100, // in BDT
+  // This hash only provides a client-side login prompt. It is not server-side access control.
+  ADMIN_PASSWORD_HASH: "f71e09e6964d6d73b80d21254deea2d3136b5f52fa99bff2318c5529c96d55e3",
   PAYMENT_NUMBERS: {
     bKash: "01581964228",
     Nagad: "01581964228",

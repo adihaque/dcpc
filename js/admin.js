@@ -3,6 +3,10 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  const loginModal = document.getElementById('loginModal');
+  const loginForm = document.getElementById('loginForm');
+  const passwordInput = document.getElementById('adminPasswordInput');
+  const loginError = document.getElementById('loginError');
   const tableBody = document.getElementById('applicantTableBody');
   const noDataRow = document.getElementById('noDataRow');
   const searchInput = document.getElementById('searchInput');
@@ -16,7 +20,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let applicants = [];
 
-  loadApplicants();
+  if (sessionStorage.getItem('dcpc_admin_authenticated') === 'true') {
+    unlock();
+  }
+
+  loginForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const passwordHash = await sha256(passwordInput.value);
+    const expectedHash = window.DCPC_CONFIG?.ADMIN_PASSWORD_HASH;
+
+    if (expectedHash && passwordHash === expectedHash) {
+      sessionStorage.setItem('dcpc_admin_authenticated', 'true');
+      unlock();
+      return;
+    }
+
+    loginError.classList.remove('hidden');
+    passwordInput.value = '';
+    passwordInput.focus();
+  });
+
+  function unlock() {
+    loginModal.classList.add('hidden');
+    loadApplicants();
+  }
+
+  async function sha256(value) {
+    const data = new TextEncoder().encode(value);
+    const digest = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(digest))
+      .map(byte => byte.toString(16).padStart(2, '0'))
+      .join('');
+  }
 
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>"']/g, character => ({

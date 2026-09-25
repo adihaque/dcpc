@@ -39,6 +39,27 @@
     </div>
   </header>
 
+  <!-- Login Modal -->
+  <div id="loginModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="glass-panel p-8 rounded-2xl max-w-sm w-full text-center border border-white/15">
+      <div class="w-12 h-12 rounded-xl bg-brand-cyan/10 text-brand-cyan mx-auto flex items-center justify-center mb-3">
+        <i data-lucide="lock" class="w-6 h-6"></i>
+      </div>
+      <h2 class="text-lg font-bold text-white mb-1">Admin Authentication</h2>
+      <p class="text-xs text-slate-400 mb-5">Enter the administrator password to continue.</p>
+
+      <form id="loginForm" class="space-y-4">
+        <input type="password" id="adminPasswordInput" autocomplete="current-password" required
+               placeholder="Enter password"
+               class="w-full px-4 py-3 text-center text-lg tracking-widest rounded-xl glass-input border border-white/10 focus:border-brand-cyan">
+        <p id="loginError" class="text-xs text-red-400 hidden">Incorrect password. Try again.</p>
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-brand-cyan hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all">
+          Sign in
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Main Dashboard Content -->
   <main class="max-w-7xl mx-auto px-4 py-8 space-y-6">
     <div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-200">
